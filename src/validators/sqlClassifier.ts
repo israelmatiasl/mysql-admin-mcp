@@ -4,6 +4,7 @@ export type SqlStatementType =
     | 'UPDATE'
     | 'DELETE'
     | 'ALTER'
+    | 'CREATE_TABLE'
     | 'CREATE_PROCEDURE'
     | 'CREATE_FUNCTION'
     | 'UNKNOWN';
@@ -26,6 +27,7 @@ export function classifySql(sql: string): SqlStatementType {
     if (normalized.startsWith('UPDATE ')) return 'UPDATE';
     if (normalized.startsWith('DELETE ')) return 'DELETE';
     if (normalized.startsWith('ALTER ')) return 'ALTER';
+    if (normalized.startsWith('CREATE TABLE ')) return 'CREATE_TABLE';
     if (normalized.startsWith('CREATE PROCEDURE ')) return 'CREATE_PROCEDURE';
     if (normalized.startsWith('CREATE FUNCTION ')) return 'CREATE_FUNCTION';
 

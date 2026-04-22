@@ -11,6 +11,7 @@ import { insertSql } from './tools/insertSql.js';
 import { updateSql } from './tools/updateSql.js';
 import { deleteSql } from './tools/deleteSql.js';
 import { alterSql } from './tools/alterSql.js';
+import { createTableSql } from './tools/createTableSql.js';
 import { createProcedureSql } from './tools/createProcedureSql.js';
 import { createFunctionSql } from './tools/createFunctionSql.js';
 import { showGrants } from './tools/showGrants.js';
@@ -176,6 +177,19 @@ export function createServer(): McpServer {
             })
         },
         async ({ sql }) => textResult(await alterSql(sql))
+    );
+
+    server.registerTool(
+        'create_table_sql',
+        {
+            title: 'Create Table SQL',
+            description:
+                'Ejecuta únicamente CREATE TABLE. Requiere ENABLE_DDL_OPERATIONS=true.',
+            inputSchema: z.object({
+                sql: z.string().min(1).describe('Sentencia CREATE TABLE')
+            })
+        },
+        async ({ sql }) => textResult(await createTableSql(sql))
     );
 
     server.registerTool(
