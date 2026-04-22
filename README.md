@@ -2,17 +2,17 @@
 
 Este proyecto implementa un servidor de **Model Context Protocol (MCP)** para la administración completa de bases de datos MySQL. Provee herramientas a los agentes de IA para ejecutar consultas, realizar modificaciones estructurales (DDL) y gestionar rutinas (procedimientos almacenados, claves foráneas, vistas, etc.).
 
-## 🛠️ Requisitos Previos
+## Requisitos Previos
 
 Para ejecutar y configurar el proyecto correctamente, se requiere tener pre-instalado lo siguiente en el entorno de tu sistema operativo:
 - **Node.js**: Versión **22 LTS**.
 - **MySQL**: Versión **8**.
 
-## ⚙️ Configuración del Usuario de MySQL
+## Configuración del Usuario de MySQL
 
 Para que el servidor MCP pueda realizar todas las acciones complejas e integrales (crear claves foráneas, procedimientos almacenados, modificar tablas y alterar la base de datos en su totalidad), se debe proporcionar un usuario MySQL con todos los privilegios asociados.
 
-Con base en los parámetros definidos en el archivo `.env`, utilizaremos el nombre de usuario `mcp_admin` junto con su clave configurada. 
+Con base en los parámetros definidos en el archivo `.env.example`, utilizaremos el nombre de usuario `mcp_admin` junto con su clave configurada. 
 
 Ingresa a la consola de mysql en tu terminal usando la cuenta administrativa (`root`):
 ```bash
@@ -38,13 +38,19 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-## 📦 Build y Compilación
+## Build y Compilación
 
 El proyecto está programado en TypeScript, por lo cual ciertos agentes o aplicaciones (como Claude) requerirán de una versión ya compilada (JavaScript) para ejecutarse correctamente como servidor MCP local.
 
 Para construir y compilar el proyecto en su versión de producción, ejecuta los siguientes comandos parados desde la ruta del proyecto:
 
-1. **Instalar dependencias necesarias**:
+1. **Crear el archivo .env y en base a .env.example**
+   ```bash
+   cp .env.example .env
+   ```
+   y luego editar el archivo .env con la información correspondiente.
+
+2. **Instalar dependencias necesarias**:
    ```bash
    npm install
    ```
@@ -56,7 +62,7 @@ Para construir y compilar el proyecto en su versión de producción, ejecuta los
 
 > *Si en algún momento requieres solo iniciar manualmente el servidor compilado, puedes visualizar su funcionamiento estándar usando:* `npm run start`
 
-## 🤖 Cómo Agregar e Integrar los Agentes
+## Cómo Agregar e Integrar los Agentes
 
 A continuación se detallan los pasos necesarios para conectar y autorizar tu servidor MCP local tanto en **Claude Desktop** como en **Codex**.
 
