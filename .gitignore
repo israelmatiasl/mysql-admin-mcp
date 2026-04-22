@@ -32,6 +32,7 @@ jspm_packages/
 
 # Output of 'npm pack'
 *.tgz
+*.mcpb
 
 # dotenv environment variables file
 .env

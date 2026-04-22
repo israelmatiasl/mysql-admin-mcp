@@ -1,0 +1,189 @@
+{
+  "manifest_version": "0.2",
+  "name": "mysql-admin-mcp",
+  "display_name": "MySQL Admin MCP",
+  "version": "1.0.0",
+  "description": "Servidor MCP local para administrar una base de datos MySQL desde Claude Desktop.",
+  "author": {
+    "name": "Inventamos",
+    "email": "t.inventamos@gmail.com"
+  },
+  "icon": "assets/icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
+      "env": {
+        "MYSQL_HOST": "${user_config.mysql_host}",
+        "MYSQL_PORT": "${user_config.mysql_port}",
+        "MYSQL_USER": "${user_config.mysql_user}",
+        "MYSQL_PASSWORD": "${user_config.mysql_password}",
+        "MYSQL_DATABASE": "${user_config.mysql_database}",
+        "APP_NAME": "${user_config.app_name}",
+        "APP_VERSION": "${user_config.app_version}",
+        "MAX_SELECT_ROWS": "${user_config.max_select_rows}",
+        "ENABLE_DESTRUCTIVE_OPERATIONS": "${user_config.enable_destructive_operations}",
+        "ENABLE_DDL_OPERATIONS": "${user_config.enable_ddl_operations}",
+        "ENABLE_ROUTINE_OPERATIONS": "${user_config.enable_routine_operations}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "health",
+      "description": "Verifica que el servidor MCP y la conexión a MySQL estén operativos."
+    },
+    {
+      "name": "list_tables",
+      "description": "Lista todas las tablas y vistas disponibles en la base actual."
+    },
+    {
+      "name": "describe_table",
+      "description": "Devuelve el detalle de columnas de una tabla."
+    },
+    {
+      "name": "show_create_table",
+      "description": "Devuelve el DDL completo de una tabla usando SHOW CREATE TABLE."
+    },
+    {
+      "name": "show_grants",
+      "description": "Lista los privilegios efectivos del usuario actual en MySQL."
+    },
+    {
+      "name": "select_sql",
+      "description": "Ejecuta únicamente sentencias SELECT sobre la base configurada. Si no incluyes LIMIT, se agregará automáticamente."
+    },
+    {
+      "name": "insert_sql",
+      "description": "Ejecuta únicamente sentencias INSERT parametrizadas."
+    },
+    {
+      "name": "update_sql",
+      "description": "Ejecuta únicamente sentencias UPDATE parametrizadas."
+    },
+    {
+      "name": "delete_sql",
+      "description": "Ejecuta únicamente sentencias DELETE parametrizadas. Requiere ENABLE_DESTRUCTIVE_OPERATIONS=true."
+    },
+    {
+      "name": "alter_sql",
+      "description": "Ejecuta únicamente sentencias ALTER. Requiere ENABLE_DDL_OPERATIONS=true."
+    },
+    {
+      "name": "create_table_sql",
+      "description": "Ejecuta únicamente CREATE TABLE. Requiere ENABLE_DDL_OPERATIONS=true."
+    },
+    {
+      "name": "create_procedure_sql",
+      "description": "Ejecuta únicamente CREATE PROCEDURE. No uses DELIMITER. Requiere ENABLE_ROUTINE_OPERATIONS=true."
+    },
+    {
+      "name": "create_function_sql",
+      "description": "Ejecuta únicamente CREATE FUNCTION. No uses DELIMITER. Requiere ENABLE_ROUTINE_OPERATIONS=true."
+    }
+  ],
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "user_config": {
+    "mysql_host": {
+      "type": "string",
+      "title": "MySQL Host",
+      "description": "Host del servidor MySQL.",
+      "required": true,
+      "sensitive": false
+    },
+    "mysql_port": {
+      "type": "number",
+      "title": "MySQL Port",
+      "description": "Puerto del servidor MySQL.",
+      "required": true,
+      "sensitive": false,
+      "min": 1,
+      "max": 65535
+    },
+    "mysql_user": {
+      "type": "string",
+      "title": "MySQL User",
+      "description": "Usuario para conectarse a MySQL.",
+      "required": true,
+      "sensitive": false
+    },
+    "mysql_password": {
+      "type": "string",
+      "title": "MySQL Password",
+      "description": "Contrasena del usuario MySQL.",
+      "required": true,
+      "sensitive": true
+    },
+    "mysql_database": {
+      "type": "string",
+      "title": "MySQL Database",
+      "description": "Base de datos por defecto.",
+      "required": true,
+      "sensitive": false
+    },
+    "app_name": {
+      "type": "string",
+      "title": "App Name",
+      "description": "Nombre interno de la aplicacion MCP.",
+      "required": true,
+      "sensitive": false
+    },
+    "app_version": {
+      "type": "string",
+      "title": "App Version",
+      "description": "Version de la aplicacion.",
+      "required": true,
+      "sensitive": false
+    },
+    "max_select_rows": {
+      "type": "number",
+      "title": "Max Select Rows",
+      "description": "Limite maximo de filas para consultas SELECT.",
+      "required": true,
+      "sensitive": false,
+      "min": 1,
+      "max": 10000
+    },
+    "enable_destructive_operations": {
+      "type": "boolean",
+      "title": "Enable Destructive Operations",
+      "description": "Habilita operaciones destructivas.",
+      "required": true,
+      "sensitive": false
+    },
+    "enable_ddl_operations": {
+      "type": "boolean",
+      "title": "Enable DDL Operations",
+      "description": "Habilita operaciones DDL.",
+      "required": true,
+      "sensitive": false
+    },
+    "enable_routine_operations": {
+      "type": "boolean",
+      "title": "Enable Routine Operations",
+      "description": "Habilita operaciones de rutinas.",
+      "required": true,
+      "sensitive": false
+    }
+  },
+  "keywords": [
+    "mysql",
+    "sql",
+    "database",
+    "admin",
+    "mcp"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/israelmatiasl/mysql-admin-mcp"
+  }
+}
